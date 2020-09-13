@@ -40,24 +40,28 @@ windower.register_event('outgoing chunk', function(id, data)
         local parsed = packets.parse('outgoing', data)
         local item = windower.ffxi.get_items(0, parsed['Inventory Index'])
         if protected_items:contains(items[item.id].name:lower()) then
-            windower.add_to_chat(8, 'Drop Protector prevented you dropping ' .. items[item.id].name)
+            windower.add_to_chat(8, 'Drop Stop prevented you dropping ' .. items[item.id].name)
             return true --prevent the drop
         end
     end
 end)
 
-windower.register_event('addon command', function(command, item_name)
-    if command == 'add' then
-        item_name = item_name:lower()
-        if not custom_protected_items:contains(item_name) then
-            table.insert(custom_protected_items, item_name)
-            table.insert(protected_items, item_name)
-            save_settings()
-        end
+windower.register_event('addon command', function(command, ...)
+    local item_parts = {...}
+    if #item_parts == 0 then return end
+
+    local item_name = table.concat(item_parts, " ")
+    local item_name_lower = item_name:lower()
+
+    if command == 'add' and not custom_protected_items:contains(item_name_lower) then
+        table.insert(custom_protected_items, item_name_lower)
+        table.insert(protected_items, item_name_lower)
+        save_settings()
+        windower.add_to_chat(8, 'Drop Stop will now prevent you from dropping ' .. item_name)
     elseif command == 'remove' then
-        item_name = item_name:lower()
         custom_protected_items:delete(item_name)
         protected_items:delete(item_name)
         save_settings()
+        windower.add_to_chat(8, 'Drop Stop will no longer prevent you from dropping ' .. item_name)
     end
 end)
