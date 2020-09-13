@@ -55,6 +55,9 @@ windower.register_event('addon command', function(command, item_name)
             save_settings()
         end
     elseif command == 'remove' then
-
+        item_name = item_name:lower()
+        custom_protected_items:delete(item_name)
+        protected_items:delete(item_name)
+        save_settings()
     end
 end)
