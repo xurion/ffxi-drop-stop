@@ -1,3 +1,3 @@
-# FFXI Drop Protector
+# FFXI Drop Stop
 
 A Lua addon for Windower 4 that prevents accidentally dropping valuable items.
