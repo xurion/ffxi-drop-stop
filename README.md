@@ -8,11 +8,11 @@ Original idea by Asura.Sadistic.
 
 ## Commands
 
-### add <item name>
+### add &lt;item name&gt;
 
 Adds an item to the protected item list.
 
-### remove <item name>
+### remove &lt;item name&gt;
 
 Removes an item to the protected item list.
 
