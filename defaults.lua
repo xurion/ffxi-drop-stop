@@ -1,4 +1,4 @@
-return L{
+return T{
     -- Relic, including upgrade stages
     'Militant Knuckles',
     'Dynamis Knuckles',

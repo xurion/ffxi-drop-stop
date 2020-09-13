@@ -8,18 +8,20 @@ items = require('resources').items
 config = require('config')
 
 defaults = {
-    items = L{}
+    items = T{}
 }
 settings = config.load(defaults)
 
 default_protected_items = require('defaults')
 custom_protected_items = settings.items
 
-protected_items = default_protected_items:extend(custom_protected_items)
+protected_items = T{}
 
--- Sanitise to lower case for easy comparison later
-for k, v in ipairs(protected_items) do
-    protected_items[k] = v:lower()
+for k, v in ipairs(default_protected_items) do
+    table.insert(protected_items, v:lower())
+end
+for k, v in ipairs(custom_protected_items) do
+    table.insert(protected_items, v:lower())
 end
 
 windower.register_event('outgoing chunk', function(id, data)
@@ -32,3 +34,13 @@ windower.register_event('outgoing chunk', function(id, data)
         end
     end
 end)
+
+-- windower.register_event('addon command', function(command, item_name)
+--     print(command, item_name)
+--     if command == 'add' then
+--         settings.items:append(item_name)
+--         settings:save()
+--     elseif command == 'remove' then
+
+--     end
+-- end)
