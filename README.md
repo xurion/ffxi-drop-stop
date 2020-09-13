@@ -4,7 +4,7 @@ A Lua addon for Windower 4 that prevents accidentally dropping valuable items.
 
 All Relic (including upgrade stages), Mythic, Empyrean, Ergon and Aeonic weapons, as well as Escutcheon shields are protected by default.
 
-Original idea by Asura.Sadistic.
+Original idea by [Asura.Sadistic](https://www.ffxiah.com/player/Asura/Sadistic) in [Lua Addon Ideas](https://www.ffxiah.com/forum/topic/37379/lua-addon-ideas/16/#3543114).
 
 ## Commands
 
