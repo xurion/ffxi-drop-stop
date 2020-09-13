@@ -1,7 +1,7 @@
 _addon.name = 'Drop Stop'
 _addon.author = 'Dean James (Xurion of Bismarck)'
 _addon.commands = {'dropstop', 'ds'}
-_addon.version = '0.0.1'
+_addon.version = '1.0.0'
 
 packets = require('packets')
 items = require('resources').items
@@ -47,21 +47,50 @@ windower.register_event('outgoing chunk', function(id, data)
 end)
 
 windower.register_event('addon command', function(command, ...)
-    local item_parts = {...}
+    command = command and command:lower() or 'help'
+
+    if commands[command] then
+        commands[command]({...})
+    else
+        commands.help()
+    end
+end)
+
+commands = {}
+
+commands.add = function(item_parts)
     if #item_parts == 0 then return end
 
     local item_name = table.concat(item_parts, " ")
     local item_name_lower = item_name:lower()
 
-    if command == 'add' and not custom_protected_items:contains(item_name_lower) then
+    if not custom_protected_items:contains(item_name_lower) then
         table.insert(custom_protected_items, item_name_lower)
         table.insert(protected_items, item_name_lower)
         save_settings()
         windower.add_to_chat(8, 'Drop Stop will now prevent you from dropping ' .. item_name)
-    elseif command == 'remove' then
-        custom_protected_items:delete(item_name)
-        protected_items:delete(item_name)
-        save_settings()
-        windower.add_to_chat(8, 'Drop Stop will no longer prevent you from dropping ' .. item_name)
     end
-end)
+end
+commands.a = commands.add
+
+commands.remove = function(item_parts)
+    if #item_parts == 0 then return end
+
+    local item_name = table.concat(item_parts, " ")
+    local item_name_lower = item_name:lower()
+
+    custom_protected_items:delete(item_name)
+    protected_items:delete(item_name)
+    save_settings()
+    windower.add_to_chat(8, 'Drop Stop will no longer prevent you from dropping ' .. item_name)
+end
+commands.r = commands.remove
+
+commands.help = function()
+    windower.add_to_chat(8, '---Drop Stop---')
+    windower.add_to_chat(8, 'Available commands:')
+    windower.add_to_chat(8, '//ds add <item name> - add the item to the protected items list')
+    windower.add_to_chat(8, '//ds remove <item name> - removed the item to the protected items list')
+    windower.add_to_chat(8, '//ds help - displays this help')
+end
+commands.h = commands.help
