@@ -8,9 +8,7 @@ items = require('resources').items
 
 -- Define all REMA and crafting shields here
 -- Also move these to a module
-protected = {
-    'BALMUNG'
-}
+protected = require('defaults')
 
 -- Convert default protected table into usable list of  lower case values
 protected_list = L{}
