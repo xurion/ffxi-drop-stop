@@ -10,7 +10,7 @@ Original idea by [Asura.Sadistic](https://www.ffxiah.com/player/Asura/Sadistic) 
 
 ### add &lt;item name&gt;
 
-Adds an item to the protected item list.
+Adds an item to the protected items list.
 
 ```
 //ds add beehive chip
@@ -18,7 +18,7 @@ Adds an item to the protected item list.
 
 ### remove &lt;item name&gt;
 
-Removes an item to the protected item list.
+Removes an item from the protected items list.
 
 ```
 //ds remove beehive chip
