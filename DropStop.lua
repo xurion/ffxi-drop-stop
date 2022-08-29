@@ -1,4 +1,4 @@
-_addon.name = 'Drop Stop'
+_addon.name = 'DropStop'
 _addon.author = 'Dean James (Xurion of Bismarck)'
 _addon.commands = {'dropstop', 'ds'}
 _addon.version = '1.0.0'
@@ -39,8 +39,9 @@ windower.register_event('outgoing chunk', function(id, data)
     if id == 0x028 then --drop item packet
         local parsed = packets.parse('outgoing', data)
         local item = windower.ffxi.get_items(0, parsed['Inventory Index'])
-        if protected_items:contains(items[item.id].name:lower()) then
-            windower.add_to_chat(8, 'Drop Stop prevented you dropping ' .. items[item.id].name)
+
+        if protected_items:contains(items[item.id].en:lower()) or protected_items:contains(items[item.id].enl:lower()) then
+            windower.add_to_chat(8, 'DropStop prevented you dropping ' .. items[item.id].name)
             return true --prevent the drop
         end
     end
@@ -68,7 +69,7 @@ commands.add = function(item_parts)
         table.insert(custom_protected_items, item_name_lower)
         table.insert(protected_items, item_name_lower)
         save_settings()
-        windower.add_to_chat(8, 'Drop Stop will now prevent you from dropping ' .. item_name)
+        windower.add_to_chat(8, 'DropStop will now stop you from dropping ' .. item_name)
     end
 end
 commands.a = commands.add
@@ -82,12 +83,12 @@ commands.remove = function(item_parts)
     custom_protected_items:delete(item_name)
     protected_items:delete(item_name)
     save_settings()
-    windower.add_to_chat(8, 'Drop Stop will no longer prevent you from dropping ' .. item_name)
+    windower.add_to_chat(8, 'DropStop will now allow you to drop ' .. item_name)
 end
 commands.r = commands.remove
 
 commands.help = function()
-    windower.add_to_chat(8, '---Drop Stop---')
+    windower.add_to_chat(8, '---DropStop---')
     windower.add_to_chat(8, 'Available commands:')
     windower.add_to_chat(8, '//ds add <item name> - add the item to the protected items list')
     windower.add_to_chat(8, '//ds remove <item name> - removed the item to the protected items list')

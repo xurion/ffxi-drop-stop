@@ -1,4 +1,4 @@
-# FFXI Drop Stop
+# FFXI DropStop
 
 A Lua addon for Windower 4 that prevents accidentally dropping valuable items.
 
@@ -12,10 +12,22 @@ Original idea by [Asura.Sadistic](https://www.ffxiah.com/player/Asura/Sadistic) 
 
 Adds an item to the protected item list.
 
+```
+//ds add beehive chip
+```
+
 ### remove &lt;item name&gt;
 
 Removes an item to the protected item list.
 
+```
+//ds remove beehive chip
+```
+
 ### help
 
 Displays available commands.
+
+```
+//ds help
+```
